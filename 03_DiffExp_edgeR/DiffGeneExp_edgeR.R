@@ -27,3 +27,8 @@ diffExp <- exactTest(y_bcv,dispersion = bcv ^ 2)
 ## extract result
 result = topTags(diffExp, n =90000)
 write.csv(result, file="./DiffGeneExp_edgeR.csv") ## output csv file, can be opened by Excel
+
+## extract differentially expressed genes, by setting 'FDR < 0.05 && logFC > 1 or < -1'
+result<- as.data.frame(result)
+result_DEG = subset(result, FDR < 0.05 & (logFC > 1 | logFC < -1))
+write.csv(result_DEG, file="./DiffGeneExp_edgeR_Filter.csv") ## output csv file, can be opened by Excel

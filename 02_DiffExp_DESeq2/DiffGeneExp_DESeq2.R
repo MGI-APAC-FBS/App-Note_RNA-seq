@@ -15,3 +15,8 @@ dds <- DESeqDataSetFromMatrix(countData=countdata, colData=coldata, design = ~ t
 dds <- DESeq(dds)
 result <- results(dds)
 write.csv(result, file="./DiffGeneExp_DESeq2.csv") ## output csv file, can be opened by Excel
+
+## extract differentially expressed genes, by setting 'padj < 0.05 && log2FoldChange > 1 or < -1'
+filter_deseq2 <- subset(result, padj < 0.05 & (log2FoldChange > 1 | log2FoldChange < -1))
+write.csv(filter_deseq2, file="./DiffGeneExp_DESeq2_Filter.csv") ## output csv file, can be opened by Excel
+
